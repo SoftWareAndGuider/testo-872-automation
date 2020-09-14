@@ -5,6 +5,7 @@ app.on('ready', createWindow)
 app.on('window-all-closed', app.quit)
 
 function createWindow () {
-  new BrowserWindow({ webPreferences: { nodeIntegration: true }, autoHideMenuBar: true })
-    .loadFile(path + '/src/index.html')
+  const win = new BrowserWindow({ webPreferences: { nodeIntegration: true }, autoHideMenuBar: true })
+  win.loadFile(path + '/src/index.html')
+  win.webContents.openDevTools()
 }

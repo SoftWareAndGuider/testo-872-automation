@@ -6,7 +6,25 @@
     <title>Document</title>
   </head>
   <body>
-    
-    <script src="/src/js/main.js"></script>
+    검색중...
+    <img src="" id="img" width=600>
+    검색 완료
+    <div id="rendered"></div>
+
+    <script>
+      const screenshot = require('screenshot-desktop')
+      const getColor = require('get-image-colors')
+      setInterval(() => {
+        screenshot({format: 'png'}).then(async (img) => {
+          document.getElementById('img').src = 'data:image/jpeg;base64, ' + img.toString('base64')
+          const colors = (await getColor(img, {count:10, type:'image/png'})).map(color => color.hex())
+          let str = ''
+          colors.forEach((color) => {
+            str += '<div style="background-color: ' + color + '"">' + color + '</div>'
+          })
+          document.getElementById('rendered').innerHTML = str 
+        })
+      }, 1000)
+    </script>
   </body>
 </html>
